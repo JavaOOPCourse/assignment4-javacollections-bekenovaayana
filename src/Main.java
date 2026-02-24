@@ -10,6 +10,18 @@ public class Main {
         IssueService issueService = new IssueService();
         ActionHistoryService actionService = new ActionHistoryService();
 
+        // initialize data
+        studentService.initializeStudents();
+        studentService.removeLowGPA();
+        studentService.insertAtIndex();
+
+        appointmentService.initializeAppointments();
+
+        issueService.initializeIssues();
+
+        actionService.initializeActions();
+        actionService.addRequestedTranscript();
+
         Scanner scanner = new Scanner(System.in);
         int choice;
 
@@ -25,29 +37,47 @@ public class Main {
             System.out.print("Choose option: ");
 
             choice = scanner.nextInt();
+            scanner.nextLine(); // очистка буфера
 
             switch (choice) {
                 case 1:
-                    // TODO
+                    studentService.findHighestGPA();
+                    studentService.printStudents();
                     break;
+
                 case 2:
-                    // TODO
+                    appointmentService.showFirstAndLast();
+                    appointmentService.printAppointments();
                     break;
+
                 case 3:
-                    // TODO
+                    issueService.showMostUrgent();
+                    issueService.resolveIssues();
+                    issueService.printRemainingIssues();
                     break;
+
                 case 4:
-                    // TODO
+                    actionService.showFirstAndLast();
+                    actionService.printHistory();
                     break;
+
                 case 5:
-                    // TODO
+                    System.out.print("Enter issue description: ");
+                    String desc = scanner.nextLine();
+                    System.out.print("Enter urgency level (1 = most urgent): ");
+                    int urgency = scanner.nextInt();
+                    issueService.addNewIssue(desc, urgency);
+                    System.out.println("New issue added.");
                     break;
+
                 case 6:
-                    // TODO
+                    actionService.undoLastAction();
                     break;
+
                 case 7:
                     System.out.println("Exiting... 👋");
                     break;
+
                 default:
                     System.out.println("Invalid option ❌");
             }
